@@ -21,19 +21,49 @@
     <header>
 
     <?php
-      require("cabecalho.php");
+     // require("cabecalho.php");
       require("conexao.php");
       ?>
     <?php
-          $itens_por_pagina = 15;
-          $pagina = intval($_GET['pagina']);
           
 
     ?>
  
 <hr>
     <div class="container">
-      <h2 class=""> Insumos</h2>
+      <h2 style="text-align: center;"> Insumos</h2>
+      <br><br><br><br><br><br>
+
+
+
+
+
+          <?php
+/*
+
+            $query_tipo = mysqli_query($bancodedados, "select * from tiposinsumos");
+            while($dados = mysqli_fetch_assoc($query_tipo)){ 
+            $id_tipo = $dados['id_tipo'];
+            echo "<option value='$id_tipo'>".$dados['descricao']."</option>";
+} */
+
+              $parametro = filter_input (INPUT_GET, "parametro");
+              if ($parametro){
+                $dadospesq = mysqli_query($bancodedados,"select * from insumos where id_tipoinsumo = '$parametro%'");
+              }
+
+          ?>
+
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>">
+              <input type="text" name="parametro" />
+              <input type="submit" value="Buscar"/>
+            </form>
+
+
+
+
+
+
       <table class="table table-bordered table-hover">
         <tr>
                 <th>ID Insumo</th>
@@ -52,7 +82,7 @@
               <?php
 
               require("conexao.php");
-              $sql = "select * from insumos limit $pagina, $itens_por_pagina";
+              $sql = "select * from insumos";
               $executa = mysqli_query($bancodedados, $sql);
               while($linha = mysqli_fetch_array($executa))
               {

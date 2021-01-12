@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "conexao.php"
 ?>
 
@@ -86,7 +87,6 @@
           <?php } ?>
 
           
-            <form action="cadastrar_insumos.php" method="post">
               
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Codigo do insumo" name="id_insumo">
@@ -106,23 +106,25 @@
               
             <div class="form-group">            
                 <select name="sn_controlaestoque" class="form-control">
-                    <option disabled selected>Controla estoque</option>
+                    <option value="F">Controla estoque</option>
                     <option value="T">Sim</option>
                     <option value="F">Não</option>
+
                 </select>
             </div>
 
 
             <div class="form-group">  
-            <select name="id_tipoinsumo" class="form-control">
-                    <option disabled selected>Tipo insumo</option>
+            <select name="id_tipoinsumo" class="form-control" required>
+                    <option value="" disabled selected>Tipo insumo</option>
                     
                     <?php
 
 
-                        $query_tipo = mysqli_query($bancodedados, "select descricao from tiposinsumos");
+                        $query_tipo = mysqli_query($bancodedados, "select * from tiposinsumos");
                         while($dados = mysqli_fetch_assoc($query_tipo)){ 
-                            echo "<option>".$dados['descricao']."</option>";
+                            $id_tipo = $dados['id_tipo'];
+                            echo "<option value='$id_tipo'>".$dados['descricao']."</option>";
                         }
                 ?>
                 </select>
@@ -130,40 +132,50 @@
             </div>
 
             <div class="form-group">  
-            <select name="id_grupo" class="form-control">
+            <select name="id_grupo" class="form-control" required>
                     <option value="" >Grupo de insumo</option>
                     
                     <?php
 
-                        $query_grupo = mysqli_query($bancodedados, "select nomegrupo from gruposinsumos");
+                        $query_grupo = mysqli_query($bancodedados, "select * from gruposinsumos");
                         while($row = mysqli_fetch_assoc($query_grupo)){ 
-                            echo "<option>".$row['nomegrupo']."</option>";
+                            $id_grupo = $row['id_grupo'];
+                            echo "<option value='$id_grupo'>".$row['nomegrupo']."</option>";
                         }
                 ?>
                 </select>
             </div>
 
+<?php
 
 
-            
-            <div class="form-group">            
-                <select name="id_centrocusto" class="form-control">
+?>
+
+
+            <div class="form-group">  
+            <select name="id_centrocusto" class="form-control" required>
                     <option value="" disabled selected>Centro de custos</option>
-            
+                    
                     <?php
 
-                        $query_centro_custo = mysqli_query($bancodedados, "select nomecentro from centrocustos");
-                        while($row = mysqli_fetch_assoc($query_centro_custo)){
-                            echo "<option>".$row['nomecentro']."</option>";
+                        $query_centro = mysqli_query($bancodedados, "select * from centrocustos");
+                        while($row = mysqli_fetch_array($query_centro)){ 
+                            $id_centro = $row['id_centro'];
+                            echo "<option value='$id_centro'>".$row['nomecentro']."</option>";
                         }
-                    ?>
+                ?>
                 </select>
+                      <?php
+                          $teste = mysqli_query($bancodedados, "SELECT id_insumo from insumos order by id_insumo desc limit 1");
+                          $endereco = mysqli_fetch_assoc($teste);
+                      ?>
             </div>
 
               <div class="mt-4 mb-4">
 
               </div>
               <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+
             </form>
 
 

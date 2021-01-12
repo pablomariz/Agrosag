@@ -20,7 +20,7 @@
 
     <header>
     <?php
-      //require("cabecalho.php");      ?>
+      require("cabecalho.php");      ?>
     </header> <!--FINAL DO CABEÇALHO -->
 
 
@@ -32,6 +32,7 @@
 
         <?php
                 require("conexao.php");
+
                   if (isset($_GET['id_insumo']))
                   {
                     if (isset($_GET['opcao']))
@@ -109,7 +110,9 @@
                       else{
                         echo $sql;
                         $sucesso = 0;
-                      }                    
+                     //   $retorno .= "certinhooo";
+                     //   header ("location: formulario_novo_insumo.php?retorno=".$retorno);
+                       }                    
   
   
                     } 
