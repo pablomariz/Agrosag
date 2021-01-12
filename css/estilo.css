@@ -1,0 +1,23 @@
+/*
+* 
+* @author João Pablo Souza Mariz
+*/
+
+nav.barra-menu {
+    padding: 15px 0px;
+    background: rgba(32, 126, 16);
+}
+
+.navbar-light .navbar-nav .nav-link{ /*definições para os links do menu*/
+    color: white;
+    font-size: 15px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{ /*definições para os links do menu ao passar o mause neles*/
+    color: #9bf0e1;
+}
+
+.navbar-light .navbar-toggler{ /*definições para o botão de menu que aparece ao reduzir a tela*/
+    color: rgba(255,255,255,.5);
+    border-color: white;
+}
