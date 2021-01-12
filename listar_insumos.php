@@ -22,7 +22,15 @@
 
     <?php
       require("cabecalho.php");
+      require("conexao.php");
       ?>
+    <?php
+          $itens_por_pagina = 15;
+          $pagina = intval($_GET['pagina']);
+          
+
+    ?>
+ 
 <hr>
     <div class="container">
       <h2 class=""> Insumos</h2>
@@ -44,8 +52,8 @@
               <?php
 
               require("conexao.php");
-              $sql = "select * from insumos";
-              $executa = mysqli_query($conn, $sql);
+              $sql = "select * from insumos limit $pagina, $itens_por_pagina";
+              $executa = mysqli_query($bancodedados, $sql);
               while($linha = mysqli_fetch_array($executa))
               {
                 echo "<tr>";
@@ -59,8 +67,8 @@
                 echo "<td>".$linha['id_tipoinsumo']."</td>";
 
 
-                echo "<td> <a href='formulario_novo_insumo.php?id_insumo=".$linha['id_insumo']."'>EDITAR </a></td>";
-                echo "<td> <a href='formulario_novo_insumo.php?id_insumo=".$linha['id_insumo']."&opcao=e'>EXCLUIR </a></td>";
+                echo "<td> <a href='formulario_novo_insumo.php?id_insumo=".$linha['id_insumo']."'>Editar </a></td>";
+                echo "<td> <a href='cadastrar_insumos.php?id_insumo=".$linha['id_insumo']."&opcao=e'>Excluir </a></td>";
               }
             ?>
   

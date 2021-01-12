@@ -1,110 +1,110 @@
-// João Pablo Souza Mariz, souzamariz27@gmail.com
+<?php
+    include "conexao.php"
+?>
 
 <!DOCTYPE html>
-  <html lang="pt-br">
-    <head>
+<html lang="pt-br">
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-      <title>SISTEL - Controle de ordem de serviços</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-      <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+
+    <title>AgroSag - Gestão de Insumos</title>
+    <link rel="icon" href="imagens/agrosag_logo.png">
   </head>
-
   <body>
+
     <header>
 
     <?php
       require("cabecalho.php");
       if(isset($_GET['id_insumo']))
       {
-        require("conecta.php");
+        require("conexao.php");
         $id_insumo = $_GET['id_insumo'];
         $sql = "select * from insumos where id_insumo = $id_insumo";
         $executa = mysqli_query($bancodedados, $sql);
         if ($linha = mysqli_fetch_array($executa))
         {
-          $id_insumo       = $linha['id_insumo'];
-          $descricao   = $linha['descricao'];
-          $id_grupo      = $linha['id_grupo'];
-          $un = $linha['un'];
-          $estoquemin      = $linha['estoquemin'];
-          $id_centrocusto      = $linha['id_centrocusto'];
-          $sn_controlaestoque      = $linha['sn_controlaestoque'];
-          $id_tipoinsumo      = $linha['id_tipoinsumo'];
 
+          $id_insumo = $linha['id_insumo'];
+          $descricao = $linha['descricao'];
+          $id_grupo = $linha['id_grupo'];
+          $un = $linha['un'];
+          $estoquemin = $linha['estoquemin'];
+          $id_centrocusto = $linha['id_centrocusto'];
+          $sn_controlaestoque = $linha['sn_controlaestoque'];
+          $id_tipoinsumo = $linha['id_tipoinsumo'];
 
         }
       }
     ?>
+</header>
 
-  </header>
-    <main role="main">
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Cadastro de Ordem de Serviços</h1>
+  <body style="margin-bottom: 0px;padding: 16px;">
+
+    
+    <br>
+
+    <div class="container">
+  <div class="d-flex justify-content-center mt-5">
+    <div class="card" style="width: 36rem;">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-center">
+          <img src="imagens/agrosag_logo.png" width="20">
+  </head>
+        </div>
+
+        <div class="row">
+          <div class="col">
+          <h4 style="text-align: center;">Cadastro de insumos</h4>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            
 
           <?php
-             if (isset($_GET['codos']))
+             if (isset($_GET['id_insumo']))
              {
           ?>
-            <form method="POST" action="cadastrar.php?id_insumo=<?php echo $id_insumo;?>">
+            <form method="POST" action="cadastrar_insumos.php?id_insumo=<?php echo $id_insumo;?>">
           <?php } else {?>
 
-            <form method="POST" action="cadastrar.php">
+            <form method="POST" action="cadastrar_insumos.php">
           <?php } ?>
 
+          
+            <form action="cadastrar_insumos.php" method="post">
+              
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Codigo do insumo" name="id_insumo">
+              </div>
 
-<form method="POST" action="cadastrar.php">
-  <div class="form-group">
-    
-  
-    
-    <label for="id_insumo">id insumo</label>
-    <input type="text" class="form-control" id="id_insumo" aria-describedby="emailHelp" name="id_insumo"
-    value = "<?php if(isset($_GET['id_insumo'])) echo $id_insumo; ?>">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Descrição do insumo" name="descricao">
+              </div>
 
-    <label for="descricao">Descricao</label>
-    <input type="text" class="form-control" id="descricao" aria-describedby="emailHelp" name="descricao" 
-    value = "<?php if(isset($_GET['id_insumo'])) echo $descricao; ?>">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Unidade" name="un" maxlength="3">
+              </div>
 
-    <select name="id_tipoinsumo" class="form-control">
-                    <option disabled selected>id grupo</option>
-                    
-                    <?php
-                    include_once("conexao.php");
-
-                        $result_nome_grupo = "select nomegrupo from gruposinsumos";
-                        $resultado_nome_grupo = mysqli_query($bancodedados, $result_nome_grupo);
-                        while($row = mysqli_fetch_assoc($resultado_nome_grupo)){ ?>
-                          <option value="<?php echo $row['id_grupo'];?>"><?php echo $row['nomegrupo']; ?></optiion>
-                        }
-                
-                </select>
-
-
-
-
-    <label for="un">unidade</label>
-    <input type="text" class="form-control" id="un" aria-describedby="emailHelp" name="un"
-    value = "<?php if(isset($_GET['id_insumo'])) echo $un; ?>">
-
-    <label for="estoquemin">estoque minimo</label>
-    <input type="text" class="form-control" id="estoquemin" aria-describedby="emailHelp" name="estoquemin" 
-    value = "<?php if(isset($_GET['id_insumo'])) echo $estoquemin; ?>">
-
-    <select name="id_centro" class="form-control">
-                    <option disabled selected>centro custo</option>
-                    
-                    <?php
-                        $result_centro_custo = "select nomecentro from centrocustos";
-                        $resultado_centro_custo = mysqli_query($bancodedados, $result_centro_custo);
-                        while($row = mysqli_fetch_assoc($resultado_centro_custo)){ ?>
-                          <option value="<?php echo $row['id_centro'];?>"><?php echo $row['nomecentro']; ?></optiion>
-                        }
-                
-                </select>
-
-
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Estoque mínimo" name="estoquemin">
+            </div>
+              
+            <div class="form-group">            
                 <select name="sn_controlaestoque" class="form-control">
                     <option disabled selected>Controla estoque</option>
                     <option value="T">Sim</option>
@@ -113,36 +113,81 @@
             </div>
 
 
-
-                <select name="id_tipoinsumo" class="form-control">
+            <div class="form-group">  
+            <select name="id_tipoinsumo" class="form-control">
                     <option disabled selected>Tipo insumo</option>
                     
                     <?php
-                        $result_tipo_inusmo = "select descricao from tipoinsumos";
-                        $resultado_tipo_insumo = mysqli_query($bancodedados, $result_tipo_inusmo);
-                        while($row = mysqli_fetch_assoc($resultado_tipo_insumo)){ ?>
-                          <option value="<?php echo $row['id_tipoinsumo'];?>"><?php echo $row['descricao']; ?></optiion>
+
+
+                        $query_tipo = mysqli_query($bancodedados, "select descricao from tiposinsumos");
+                        while($dados = mysqli_fetch_assoc($query_tipo)){ 
+                            echo "<option>".$dados['descricao']."</option>";
                         }
-                
+                ?>
                 </select>
 
- 
+            </div>
+
+            <div class="form-group">  
+            <select name="id_grupo" class="form-control">
+                    <option value="" >Grupo de insumo</option>
+                    
+                    <?php
+
+                        $query_grupo = mysqli_query($bancodedados, "select nomegrupo from gruposinsumos");
+                        while($row = mysqli_fetch_assoc($query_grupo)){ 
+                            echo "<option>".$row['nomegrupo']."</option>";
+                        }
+                ?>
+                </select>
+            </div>
+
+
+
+            
+            <div class="form-group">            
+                <select name="id_centrocusto" class="form-control">
+                    <option value="" disabled selected>Centro de custos</option>
+            
+                    <?php
+
+                        $query_centro_custo = mysqli_query($bancodedados, "select nomecentro from centrocustos");
+                        while($row = mysqli_fetch_assoc($query_centro_custo)){
+                            echo "<option>".$row['nomecentro']."</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+
+              <div class="mt-4 mb-4">
+
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+            </form>
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
     
-  </div>
-
-
-
-  <input type="submit" class="btn btn-primary" value="Gravar">
-
   
-    </main>
-    <hr>
 
- 
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
-  </html>
+</html>

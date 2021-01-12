@@ -38,7 +38,7 @@
                     {
                       $id_insumo = $_GET['id_insumo'];
                       $sql = "delete from insumos where id_insumo = $id_insumo";
-                      $executa = mysqli_query($conn, $sql);
+                      $executa = mysqli_query($bancodedados, $sql);
   
                       if($executa){
                         echo "Registro excluido com sucesso";
@@ -64,8 +64,9 @@
 
 
                       
-                      $sql = "update insumos set id_insumo = '$id_insumo', descricao = '$descricao', id_grupo = '$id_grupo', un = '$un', estoquemin = '$estoquemin', id_centrocusto = '$id_centrocusto', sn_controlaestoque = '$sn_controlaestoque', id_tipoinsumo = '$id_tipoinsumo'  where id_insumo = $id_insumo";
-                      $executa = mysqli_query($conn, $sql);
+                      $sql = "update insumos set id_insumo = '$id_insumo', descricao = '$descricao', id_grupo = '$id_grupo', un = '$un', estoquemin = '$estoquemin', id_centrocusto = '$id_centrocusto', sn_controlaestoque = '$sn_controlaestoque', id_tipoinsumo
+                       = '$id_tipoinsumo'  where id_insumo = $id_insumo";
+                      $executa = mysqli_query($bancodedados, $sql);
                       
                       if($executa){
                         echo "Dados alterados com sucesso!";
@@ -98,7 +99,7 @@
                       $sql = "insert into insumos (id_insumo, descricao, id_grupo, un, estoquemin,
                       id_centrocusto, sn_controlaestoque, id_tipoinsumo) values ('$id_insumo','$descricao', '$id_grupo', '$un', '$estoquemin',
                       '$id_centrocusto', '$sn_controlaestoque', '$id_tipoinsumo')";
-                      $executa = mysqli_query($conn, $sql);
+                      $executa = mysqli_query($bancodedados, $sql);
                       
                       if($executa){
                         echo "Dados gravados com sucesso!";
@@ -106,7 +107,7 @@
                       }
   
                       else{
-                        echo "Erro ao gravar os dados!";
+                        echo $sql;
                         $sucesso = 0;
                       }                    
   
