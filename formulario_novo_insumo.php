@@ -35,7 +35,6 @@
         $executa = mysqli_query($bancodedados, $sql);
         if ($linha = mysqli_fetch_array($executa))
         {
-
           $id_insumo = $linha['id_insumo'];
           $descricao = $linha['descricao'];
           $id_grupo = $linha['id_grupo'];
@@ -44,7 +43,6 @@
           $id_centrocusto = $linha['id_centrocusto'];
           $sn_controlaestoque = $linha['sn_controlaestoque'];
           $id_tipoinsumo = $linha['id_tipoinsumo'];
-
         }
       }
     ?>
@@ -56,26 +54,22 @@
     <br>
 
     <div class="container">
-  <div class="d-flex justify-content-center mt-5">
-    <div class="card" style="width: 36rem;">
-      <div class="card-body">
-
-        <div class="d-flex justify-content-center">
-          <img src="imagens/agrosag_logo.png" width="20">
+      <div class="d-flex justify-content-center mt-5">
+        <div class="card" style="width: 36rem;">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <img src="imagens/agrosag_logo.png" width="20">
   </head>
         </div>
 
         <div class="row">
           <div class="col">
           <h4 style="text-align: center;">Cadastro de insumos</h4>
-
           </div>
         </div>
-
         <div class="row">
           <div class="col">
             
-
           <?php
              if (isset($_GET['id_insumo']))
              {
@@ -85,9 +79,7 @@
 
             <form method="POST" action="cadastrar_insumos.php">
           <?php } ?>
-
           
-              
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Codigo do insumo" name="id_insumo">
               </div>
@@ -113,30 +105,24 @@
                 </select>
             </div>
 
-
             <div class="form-group">  
             <select name="id_tipoinsumo" class="form-control" required>
-                    <option value="" disabled selected>Tipo insumo</option>
-                    
-                    <?php
-
-
-                        $query_tipo = mysqli_query($bancodedados, "select * from tiposinsumos");
-                        while($dados = mysqli_fetch_assoc($query_tipo)){ 
-                            $id_tipo = $dados['id_tipo'];
-                            echo "<option value='$id_tipo'>".$dados['descricao']."</option>";
-                        }
+                <option value="" disabled selected>Tipo insumo</option>
+                <?php
+                    $query_tipo = mysqli_query($bancodedados, "select * from tiposinsumos");
+                    while($dados = mysqli_fetch_assoc($query_tipo)){ 
+                        $id_tipo = $dados['id_tipo'];
+                        echo "<option value='$id_tipo'>".$dados['descricao']."</option>";
+                    }
                 ?>
-                </select>
+            </select>
 
             </div>
 
             <div class="form-group">  
             <select name="id_grupo" class="form-control" required>
-                    <option value="" >Grupo de insumo</option>
-                    
-                    <?php
-
+                <option value="" >Grupo de insumo</option>
+                <?php
                         $query_grupo = mysqli_query($bancodedados, "select * from gruposinsumos");
                         while($row = mysqli_fetch_assoc($query_grupo)){ 
                             $id_grupo = $row['id_grupo'];
@@ -146,54 +132,36 @@
                 </select>
             </div>
 
-<?php
-
-
-?>
-
-
             <div class="form-group">  
             <select name="id_centrocusto" class="form-control" required>
                     <option value="" disabled selected>Centro de custos</option>
-                    
                     <?php
-
                         $query_centro = mysqli_query($bancodedados, "select * from centrocustos");
                         while($row = mysqli_fetch_array($query_centro)){ 
                             $id_centro = $row['id_centro'];
                             echo "<option value='$id_centro'>".$row['nomecentro']."</option>";
                         }
-                ?>
-                </select>
-                      <?php
+                    ?>
+             </select>
+                    <?php
                           $teste = mysqli_query($bancodedados, "SELECT id_insumo from insumos order by id_insumo desc limit 1");
                           $endereco = mysqli_fetch_assoc($teste);
-                      ?>
+                    ?>
             </div>
-
               <div class="mt-4 mb-4">
-
               </div>
               <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
 
             </form>
-
-
-
+                
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
 
 
-
-    
-  
-
-    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Popper JS -->
